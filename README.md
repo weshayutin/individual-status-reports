@@ -18,12 +18,7 @@ python-bugzilla
 A TEAM variable must be set in environment.sh
 
 Description:
-export TEAM='{"red hat short name":{"trello":"trello user id", "rh_email":"whayutin@redhat.com", "openstack":"launchpad id",\
+export TEAM='{"red hat short name":{"trello":"trello user id", "rh_email":"foo@redhat.com", "openstack":"launchpad id",\
 "gerrithub": "gerrithub id"}
-}'
-
-Example:
-export TEAM='{"whayutin":{"trello":"weshayutin1", "rh_email":"whayutin@redhat.com", "openstack":"weshayutin",\
- "gerrithub":"weshayutin@gmail.com"}
 }'
 
