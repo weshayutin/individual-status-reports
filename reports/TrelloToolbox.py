@@ -6,12 +6,9 @@ from datetime import datetime
 
 import dateutil.parser
 import pytz
+import pdb
 import requests
 from dateutil.relativedelta import *
-
-OVERDUE_NOTICE = "This card is overdue, please review https://etherpad.openstack.org/p/uETabgwn3P"
-BLOCKING_LABELS = ['BLOCKED', 'WAIT FOR REVIEW or MERGE']
-
 
 #
 # API CONTEXT OBJECT
@@ -197,20 +194,20 @@ class Cards(object):
         response.raise_for_status()
         return json.loads(response.text)
 
-    def check_card_overdue(self, cardId):
+    def check_card_overdue(self, cardId, blocking_labels, overdue_notice):
         now = datetime.now(pytz.utc)
         due = dateutil.parser.parse(self.get_card_due_date(cardId))
         delta = relativedelta(now, due)
         if delta.days > 0 or delta.months > 0:
-            if not self.check_card_blocked_label(cardId):
-                self.add_comment_to_card(cardId, OVERDUE_NOTICE)
+            if not self.check_card_blocked_label(cardId, blocking_labels):
+                self.add_comment_to_card(cardId, overdue_notice)
                 return True
         else:
             return False
 
-    def check_card_blocked_label(self, cardId):
+    def check_card_blocked_label(self, cardId, blocking_labels):
         labels = self.get_card_labels(cardId)
-        if [label for label in labels if label['name'] in BLOCKING_LABELS]:
+        if [label for label in labels if label['name'] in blocking_labels]:
             return True
         else:
             return False
