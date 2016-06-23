@@ -1,6 +1,6 @@
 There are a couple tools here.
 
-#1 print_report.sh
+#1: print_report.sh
 
     This will print out a report with the following information:
     * All recently modified trello cards across all boards in trello per person in
@@ -27,7 +27,7 @@ There are a couple tools here.
     "gerrithub": "gerrithub id"}
     }'
 
-#2 trello_due_dates.sh
+#2: trello_due_dates.sh
 
     This will set cards with a due date if one is not already set. It defaults to 7 days from now.
     It will also print out a list of overdue cards.
