@@ -48,7 +48,6 @@ def set_trello_due_date(team, board_name, trello_user, column_name, blocking_lab
     for card in card_list:
         if card['idMembers']:
             if card['idMembers'] is not None:
-                pdb.set_trace()
                 if listId == card['idList']:
                     if set(card['idMembers']).issubset(member_list) and card['due'] is None:
                         cardsHelper.add_due_date_to_card(card, in_one_week)
