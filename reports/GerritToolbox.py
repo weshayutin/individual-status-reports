@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
 import json
-
 import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
+#import pdb
 
 #
 # API CONTEXT OBJECT
@@ -53,9 +54,13 @@ class Changes(object):
         gerrithub = json.loads(response.text[4:])
 
         # get code.engineering changes
+
+        # turn off insecure warning for code.eng
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
         s = '{0}/changes/?q=(status:open+OR+status:merged)+owner:{1}+after:{2}' \
             .format(self._api.code_eng_root_url, codeng_person, since_date)
-        response = requests.get(s)
+        response = requests.get(s, verify=False)
         response.raise_for_status()
         codeng = json.loads(response.text[4:])
 
