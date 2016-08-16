@@ -60,9 +60,9 @@ class Report():
                                             len(active_cards), "=" * 10)
         self.print_cards(active_cards, header)
 
-    def print_reviews(self, openstack_person, gerrithub_person, start_date):
+    def print_reviews(self, openstack_person, gerrithub_person, codeng_person, start_date):
         date = (now + relativedelta(weeks=start_date)).strftime("%Y-%m-%d")
-        changes = changesHelper.get_open_changes_by_person(openstack_person, gerrithub_person, date)
+        changes = changesHelper.get_open_changes_by_person(openstack_person, gerrithub_person, codeng_person, date)
         print('\t {0:>50s} {1:<70s} {2:>8s} {3:>10s} {4:.10s} {5:.10s}'.format("project", "subject", "id", "status",
                                                                                "created", "   updated"))
         print("=" * 5 + " Since " + date + " Total Open or Merged Gerrit Reviews: " + str(

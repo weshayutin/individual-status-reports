@@ -27,7 +27,7 @@ if __name__ == "__main__":
         reportHelper.print_active_cards(m, recent)
         print("\n")
         # print out gerrit reviews
-        reportHelper.print_reviews(team[member]['openstack'], team[member]['gerrithub'], recent)
+        reportHelper.print_reviews(team[member]['openstack'], team[member]['gerrithub'], team[member]['rh_email'], recent)
         print("\n\n\n")
         # print out launchpad bugs
         reportHelper.print_launch_pad_bugs(team[member]['openstack'], recent)
