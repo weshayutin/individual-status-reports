@@ -59,11 +59,19 @@ class Changes(object):
         gerrithub = json.loads(response.text[4:])
 
         # get review.rdoproject changes
-        s = '{0}/changes/?q=(status:open OR status:merged)+owner:{1}+after:{2}' \
-            .format(self._api.rdoproject_root_url, rdoproject_person, since_date)
-        response = requests.get(s)
-        response.raise_for_status()
-        rdoproject = json.loads(response.text[4:])
+        try:
+            s = '{0}/changes/?q=(status:open OR status:merged)+owner:{1}+after:{2}' \
+                .format(self._api.rdoproject_root_url, rdoproject_person, since_date)
+            response = requests.get(s)
+            response.raise_for_status()
+            rdoproject = json.loads(response.text[4:])
+        except requests.exceptions.HTTPError as err:
+            if err.response.status_code == 400:
+                print("rdoproject user not found")
+                rdoproject = []
+            else:
+                raise
+            
 
         # get code.engineering changes
 
