@@ -22,6 +22,11 @@ class ApiContext(object):
     def code_eng_root_url(self):
         return "https://code.engineering.redhat.com/gerrit"
 
+    @property
+    def rdoproject_root_url(self):
+        return "https://review.rdoproject.org/r"
+    
+
 
 class Documentation(object):
     def __init__(self, context):
@@ -38,7 +43,7 @@ class Changes(object):
     def __init__(self, context):
         self._api = context
 
-    def get_open_changes_by_person(self, openstack_person, gerrithub_person, codeng_person, since_date):
+    def get_open_changes_by_person(self, openstack_person, gerrithub_person, codeng_person, rdoproject_person, since_date):
         # get openstack.review.org changes
         s = '{0}/changes/?q=(status:open OR status:merged)+owner:{1}+after:{2}' \
             .format(self._api.openstack_api_root_url, openstack_person, since_date)
@@ -53,6 +58,13 @@ class Changes(object):
         response.raise_for_status()
         gerrithub = json.loads(response.text[4:])
 
+        # get review.rdoproject changes
+        s = '{0}/changes/?q=(status:open OR status:merged)+owner:{1}+after:{2}' \
+            .format(self._api.rdoproject_root_url, rdoproject_person, since_date)
+        response = requests.get(s)
+        response.raise_for_status()
+        rdoproject = json.loads(response.text[4:])
+
         # get code.engineering changes
 
         # turn off insecure warning for code.eng
@@ -65,6 +77,6 @@ class Changes(object):
         codeng = json.loads(response.text[4:])
 
         # jsonResponse = {key: value for (key, value) in (openstack.items() + gerrithub.items())}
-        jsonResponse = openstack + gerrithub + codeng
+        jsonResponse = openstack + gerrithub + codeng + rdoproject
 
         return jsonResponse
