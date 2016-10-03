@@ -5,10 +5,13 @@ import os
 from datetime import datetime
 
 import dateutil.parser
+import numpy as np
 import pytz
 import pdb
 import requests
 from dateutil.relativedelta import *
+
+BOARD_BLACKLIST = os.environ.get('TRELLO_BOARD_BLACKLIST')
 
 #
 # API CONTEXT OBJECT
@@ -48,7 +51,6 @@ class Boards(object):
         jsonResponse = json.loads(response.text)
         return jsonResponse
 
-    # oddly there's role based filtering, but no GET api to retrieve a board by name (filtered by token entitlement)
     def get_all_by_member(self, memberNameOrId):
         "Obtain data struct for a board by name."
 
@@ -147,8 +149,16 @@ class Members(object):
         membersUrl = '{0}/members/{1}/cards/open'.format(self._api.ApiRootUrl, memberId)
         response = requests.get(membersUrl, params=self._api.Payload)
         response.raise_for_status()
-        return json.loads(response.text)
 
+        # scrub trello cards for blacklisted boards
+        data = json.loads(response.text)
+        remove_list = []
+        # create a list of cards that are blacklisted
+        for i in xrange(len(data)):
+            if BOARD_BLACKLIST == data[i]['idBoard'].encode("ascii"):
+                remove_list.append(i)
+        data = np.delete(data, remove_list).tolist()
+        return data
 
 #
 # CARDS
