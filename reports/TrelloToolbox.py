@@ -134,7 +134,8 @@ class Members(object):
 
     def get_member_name(self, memberId):
         "Get member name based on id"
-        return (self.get_member(memberId)['fullName'])
+        a = self.get_member(memberId)['fullName']
+        return (self.get_member(memberId)['fullName'].encode('ascii','ignore'))
 
     def get_member_names_from_list(self, memberId):
         "Get member name based on id"

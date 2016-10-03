@@ -10,7 +10,7 @@ case $key in
     shift
     ;;
     -h|--help)
-    HELP="$2"
+    HELP="true"
     shift
     ;;
     *)
@@ -24,16 +24,15 @@ function usage
     echo "usage: print_report.sh  [ -t team_name [direct_reports, rdo_infra] ] [-h --help]"
 }
 
+if [[ -v $HELP ]]; then
+   usage
+   exit
+fi
+
 if [[ -z $TEAM ]]; then
     usage
     exit -1
 fi
-
-if [[ $HELP ]]; then
-   usage
-fi
-
-
 
 echo SELECTED TEAM = "${TEAM}"
 

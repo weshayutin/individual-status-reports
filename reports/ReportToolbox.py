@@ -59,7 +59,7 @@ class Report():
 
         header = '\t {} {} {} {} {}'.format("=============", membersHelper.get_member_name(member),
                                             "'s Active cards since " + since + " " + "================== Number of Cards: ",
-                                            len(active_cards), "=" * 10)
+                                            len(active_cards), "===========")
         self.print_cards(active_cards, header)
         return membersHelper.get_member_name(member), len(active_cards)
 
