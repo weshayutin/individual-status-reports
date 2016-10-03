@@ -61,6 +61,7 @@ class Report():
                                             "'s Active cards since " + since + " " + "================== Number of Cards: ",
                                             len(active_cards), "=" * 10)
         self.print_cards(active_cards, header)
+        return membersHelper.get_member_name(member), len(active_cards)
 
     def print_reviews(self, openstack_person, gerrithub_person, codeng_person, rdoproject_person, start_date):
         date = (now + relativedelta(weeks=start_date)).strftime("%Y-%m-%d")
@@ -73,6 +74,7 @@ class Report():
             print('\t {0:>50s} {1:<70s} {2:>8} {3:>10s} {4:.10s} {5:.10s}'.format(c['project'], c['subject'],
                                                                                   c['_number'], c['status'],
                                                                                   c['created'], c['updated']))
+        return openstack_person, len(changes)
 
     def print_launch_pad_bugs(self, openstack_person, start_date):
         bugs = lpbugsHelper.get_bugs_by_person(openstack_person, start_date)
@@ -86,6 +88,7 @@ class Report():
                     datetime.fromtimestamp(mktime(bug['updated_parsed'])))[0:10], bug['link'], bug['title']))
         else:
             print("No recently opened LaunchPad bugs found")
+        return openstack_person, len(bugs)
 
     def print_bugzilla_bugs(self, person, start_date):
         bugs = bzHelper.get_rhos_bugs(person, start_date)
@@ -99,3 +102,4 @@ class Report():
                 print('\t {} {} {} {} '.format(bug.status, str(bug.last_change_time)[0:8], bug.weburl, bug.summary))
         else:
             print("No recently opened Bugzilla bugs found")
+        return person, len(bugs)
