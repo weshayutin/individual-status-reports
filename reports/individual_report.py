@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import ast
+import json
 import os
 from datetime import datetime
 
@@ -51,17 +52,17 @@ if __name__ == "__main__":
 
     print("Summary:")
     print("=" * 100 + "\n\n")
-    print("Trello Summary:\n")
-    print(summary_cards)
+    print("Trello Summary: " + str(sum(summary_cards.values())) + "\n")
+    print json.dumps(summary_cards, indent=1, sort_keys=True)
     print("\n\n")
-    print("Gerrit Summary:\n")
-    print(summary_gerrit)
+    print("Gerrit Summary: " + str(sum(summary_gerrit.values())) + "\n")
+    print json.dumps(summary_gerrit, indent=1, sort_keys=True)
     print("\n\n")
-    print("LaunchPad Bug Summary:\n")
-    print(summary_lp_bugs)
+    print("LaunchPad Bug Summary: " + str(sum(summary_lp_bugs.values())) + "\n")
+    print json.dumps(summary_lp_bugs, indent=1, sort_keys=True)
     print("\n\n")
-    print("Bugzilla Bug Summary:\n")
-    print(summary_bz_bugs)
+    print("Bugzilla Bug Summary: " + str(sum(summary_bz_bugs.values()))  + "\n")
+    print json.dumps(summary_bz_bugs, indent=1, sort_keys=True)
     print("\n\n")
 
 
