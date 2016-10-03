@@ -13,6 +13,8 @@ import dateutil.parser
 import pytz
 from dateutil.relativedelta import *
 
+import pdb
+
 # Global variables
 now = datetime.now(pytz.utc)
 team = ast.literal_eval(os.environ['TEAM'])
@@ -86,7 +88,7 @@ class Report():
             print("No recently opened LaunchPad bugs found")
 
     def print_bugzilla_bugs(self, person, start_date):
-        bugs = bzHelper.get_rhos_bugs(person, -2)
+        bugs = bzHelper.get_rhos_bugs(person, start_date)
         if bugs:
             print(
                 '\t{} {} {} {} {} {}'.format("=" * 20, "Bugzilla bugs reported by: ", person, "=== Total Bugs: ",
