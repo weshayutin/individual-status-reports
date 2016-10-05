@@ -36,11 +36,12 @@ fi
 
 echo SELECTED TEAM = "${TEAM}"
 
+exec &> >(tee -ia ~/Documents/ENGINEERING_REPORTS/report_`date +%Y-%m-%d`.txt )
 
 source team_$TEAM.sh
 source environment.sh
 bash check_env.sh
 
-COMMAND='python2 reports/individual_report.py #| tee > ~/Documents/ENGINEERING_REPORTS/report_`date +%Y-%m-%d`.txt'
-
+COMMAND='python2 reports/individual_report.py #| tee ~/Documents/ENGINEERING_REPORTS/report_`date +%Y-%m-%d`.txt'
+echo $COMMAND
 $COMMAND
