@@ -36,12 +36,27 @@ fi
 
 echo SELECTED TEAM = "${TEAM}"
 
-exec &> >(tee -ia ~/Documents/ENGINEERING_REPORTS/report_`date +%Y-%m-%d`.txt )
+# setup logging directory
+mkdir -p ~/Documents/ENGINEERING_REPORTS/
 
-source team_$TEAM.sh
-source environment.sh
+exec &> >(tee -ia ~/Documents/ENGINEERING_REPORTS/"$TEAM"_report_`date +%Y-%m-%d`.txt )
+
+if [ -f team_$TEAM.sh ]; then
+    source team_$TEAM.sh
+else
+    echo "missing file team_$TEAM.sh"
+    exit
+fi
+
+if [ -f environment.sh ]; then
+    source environment.sh
+else
+    echo "missing file environment.sh"
+    exit
+fi
+
 bash check_env.sh
 
-COMMAND='python2 reports/individual_report.py #| tee ~/Documents/ENGINEERING_REPORTS/report_`date +%Y-%m-%d`.txt'
+COMMAND='python2 reports/individual_report.py'
 echo $COMMAND
 $COMMAND
