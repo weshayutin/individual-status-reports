@@ -17,6 +17,6 @@ if [[ $REQUIREMENTS == 0 ]]; then
 else
     echo "Missing requirements, Installing $RPM_REQS"
     sleep 5;
-    sudo yum install -y  $RPM_REQS
+    sudo dnf install -y  $RPM_REQS
 fi
 
