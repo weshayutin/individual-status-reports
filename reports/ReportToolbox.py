@@ -40,8 +40,15 @@ class Report():
         "Print a list of cards in a nice neat summary view"
         print(header)
         for c in cards:
+            cn=c['name']
+            bid=c['idBoard']
+            surl=c['shortUrl']
+            card_name=cn.encode('ascii', 'replace')
+            board_id=bid.encode('ascii', 'replace')
+            short_url=surl.encode('ascii', 'replace')
+
             print(
-                '\t {0:>30s}: {1:>20s} {2:<.80}'.format(boardsHelper.get_name(c['idBoard']), c['shortUrl'], c['name']))
+                '\t {0:>30s}: {1:>20s} {2:<.80}'.format(boardsHelper.get_name(board_id), short_url, card_name))
 
     def get_member_cards(self, member):
         # get the trello cards for the member from everyboard
