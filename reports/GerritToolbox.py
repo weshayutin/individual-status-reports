@@ -25,7 +25,7 @@ class ApiContext(object):
     @property
     def rdoproject_root_url(self):
         return "https://review.rdoproject.org/r"
-    
+
 
 
 class Documentation(object):
@@ -71,20 +71,24 @@ class Changes(object):
                 rdoproject = []
             else:
                 raise
-            
+
 
         # get code.engineering changes
 
         # turn off insecure warning for code.eng
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-        s = '{0}/changes/?q=(status:open+OR+status:merged)+owner:{1}+after:{2}' \
-            .format(self._api.code_eng_root_url, codeng_person, since_date)
-        response = requests.get(s, verify=False)
-        response.raise_for_status()
-        codeng = json.loads(response.text[4:])
+        try:
+            s = '{0}/changes/?q=(status:open+OR+status:merged)+owner:{1}+after:{2}' \
+                .format(self._api.code_eng_root_url, codeng_person, since_date)
+            response = requests.get(s, verify=False)
+            response.raise_for_status()
+            codeng = json.loads(response.text[4:])
+        except requests.exceptions.HTTPError as err:
+            if err.response.status_code == 400:
+                print("error collecting gerrit data for code.eng")
+                codeng = []
 
-        # jsonResponse = {key: value for (key, value) in (openstack.items() + gerrithub.items())}
         jsonResponse = openstack + gerrithub + codeng + rdoproject
 
         return jsonResponse
