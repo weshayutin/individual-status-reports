@@ -82,7 +82,7 @@ class Report():
                                             "'s Active cards since " + since + " " + "================== Number of Cards: ",
                                             len(active_cards), "======== In Progress:", len(in_progress_cards), "====================")
         self.print_cards(active_cards, header)
-        return membersHelper.get_member_name(member), len(active_cards)
+        return membersHelper.get_member_name(member), len(active_cards), len(in_progress_cards)
 
     def print_reviews(self, openstack_person, gerrithub_person, codeng_person, rdoproject_person, start_date):
         date = (now + relativedelta(weeks=start_date)).strftime("%Y-%m-%d")

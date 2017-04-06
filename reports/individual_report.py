@@ -23,6 +23,7 @@ reportHelper = report.Report()
 if __name__ == "__main__":
 
     summary_cards = {}
+    summary_in_progress_cards = {}
     summary_gerrit = {}
     summary_lp_bugs = {}
     summary_bz_bugs = {}
@@ -31,8 +32,9 @@ if __name__ == "__main__":
         m = membersHelper.get_member_id(team[member]['trello'])
         # print out active trello cards
         print('\t {} {} {} {}\n'.format("=" * 60, member.upper(), "ENGINEERING REPORT", "=" * 60))
-        person_trello, cards = reportHelper.print_active_cards(m, recent)
+        person_trello, cards, in_progress_cards = reportHelper.print_active_cards(m, recent)
         summary_cards[person_trello] = cards
+        summary_in_progress_cards[person_trello] = in_progress_cards
         print("\n")
 
         # print out gerrit reviews
@@ -54,6 +56,9 @@ if __name__ == "__main__":
     print("=" * 100 + "\n\n")
     print("Trello Summary: " + str(sum(summary_cards.values())) + "\n")
     print json.dumps(summary_cards, indent=1, sort_keys=True)
+    print("\n\n")
+    print("Trello In Progress Cards Summary: " + str(sum(summary_in_progress_cards.values())) + "\n")
+    print json.dumps(summary_in_progress_cards, indent=1, sort_keys=True)
     print("\n\n")
     print("Gerrit Summary: " + str(sum(summary_gerrit.values())) + "\n")
     print json.dumps(summary_gerrit, indent=1, sort_keys=True)
