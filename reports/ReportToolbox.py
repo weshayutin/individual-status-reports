@@ -18,6 +18,7 @@ import pdb
 # Global variables
 now = datetime.now(pytz.utc)
 team = ast.literal_eval(os.environ['TEAM'])
+board_to_check_id = os.environ['BOARD_TO_CHECK_ID']
 _myToken = os.environ.get('trello_token')
 
 # in a full SDK wrapper (not the goal here) this would live in __init__.py for a seperate module
@@ -43,12 +44,16 @@ class Report():
             cn=c['name']
             bid=c['idBoard']
             surl=c['shortUrl']
+            clistId=c['idList']
+            parent_list_name=boardsHelper.get_single_list_by_id(bid, clistId)
             card_name=cn.encode('ascii', 'replace')
             board_id=bid.encode('ascii', 'replace')
             short_url=surl.encode('ascii', 'replace')
+            card_list=parent_list_name.encode('ascii', 'replace')
+
 
             print(
-                '\t {0:>30s}: {1:>20s} {2:<.80}'.format(boardsHelper.get_name(board_id), short_url, card_name))
+                '\t {0:>30s}: {1:>20s} {2:>20s} {3:<.80}'.format(boardsHelper.get_name(board_id), short_url, card_list, card_name))
 
     def get_member_cards(self, member):
         # get the trello cards for the member from everyboard
@@ -56,6 +61,7 @@ class Report():
 
     def print_active_cards(self, member, start_date):
         active_cards = []
+        in_progress_cards = []
         cards = self.get_member_cards(member)
         two_weeks_ago = now + relativedelta(weeks=start_date)
         since = two_weeks_ago.strftime("%Y-%m-%d")
@@ -63,10 +69,18 @@ class Report():
             last_activity = dateutil.parser.parse(c['dateLastActivity'])
             if last_activity > two_weeks_ago:
                 active_cards.append(c)
+        list_in_progress_id=boardsHelper.get_single_list_by_name(board_to_check_id, "In Progress")
+        cards_in_progress=cardsHelper.get_cards(list_in_progress_id)
+        member=member.encode('ascii', 'replace')
+        for c in cards_in_progress:
+            if member in c['idMembers']:
+                in_progress_cards.append(c)
 
-        header = '\t {} {} {} {} {}'.format("=============", membersHelper.get_member_name(member),
+
+
+        header = '\t {} {} {} {} {} {} {}'.format("=============", membersHelper.get_member_name(member),
                                             "'s Active cards since " + since + " " + "================== Number of Cards: ",
-                                            len(active_cards), "===========")
+                                            len(active_cards), "======== In Progress:", len(in_progress_cards), "====================")
         self.print_cards(active_cards, header)
         return membersHelper.get_member_name(member), len(active_cards)
 

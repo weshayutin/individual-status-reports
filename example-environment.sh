@@ -14,6 +14,7 @@ export TEAM='{"whayutin":{"trello":"weshayutin1", "rh_email":"foo@redhat.com", "
 
 # Trello Card Due Dates
 export BOARD_TO_CHECK="Board Name"
+export BOARD_TO_CHECK_ID="hash"  #get hash by http://trello.com/b/board.json
 export BOARD_TO_CHECK_COLUMN="In Progress"
 export MY_TRELLO_ID="weshayutin1"
 export OVERDUE_NOTICE="This card is overdue, please review https://etherpad.openstack.org/p/uETabgwn3P"

@@ -92,13 +92,24 @@ class Boards(object):
         return jsonResp
 
     def get_lists_by_name(self, boardId, listName, raiseExceptionIfDuplicates=True):
-        "Get all lists associated with a board."
+        "Get all lists associated with a board by name."
         lists = self.get_lists(boardId)
         listsToReturn = [l for l in lists if l['name'] == listName]
 
         if raiseExceptionIfDuplicates == True:
             if len(listsToReturn) != 1:
                 raise AssertionError("ERROR: get_lists_by_name({0}, {1}) - NO DUPES ALLOWED".format(boardId, listName))
+
+        return listsToReturn
+
+    def get_lists_by_id(self, boardId, listId, raiseExceptionIfDuplicates=True):
+        "Get all lists associated with a board by id."
+        lists = self.get_lists(boardId)
+        listsToReturn = [l for l in lists if l['id'] == listId]
+
+        #if raiseExceptionIfDuplicates == True:
+        #    if len(listsToReturn) != 1:
+        #        raise AssertionError("ERROR: get_lists_by_id({0}, {1}) - NO DUPES ALLOWED".format(boardId, listId))
 
         return listsToReturn
 
@@ -113,6 +124,13 @@ class Boards(object):
         id = lists[0]['id']
         return id
 
+    def get_single_list_by_id(self, boardId, listId):
+        lists = self.get_lists_by_id(boardId, listId)
+        try:
+            name = lists[0]['name']
+        except IndexError:
+            name = "unknown"
+        return name
 
 #
 # MEMBERS
