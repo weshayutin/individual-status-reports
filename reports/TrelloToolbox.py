@@ -229,7 +229,7 @@ class Cards(object):
         delta = relativedelta(now, due)
         if delta.days > 0 or delta.months > 0:
             if not self.check_card_blocked_label(cardId, blocking_labels):
-                self.add_comment_to_card(cardId, overdue_notice)
+                #self.add_comment_to_card(cardId, overdue_notice)
                 return True
         else:
             return False
