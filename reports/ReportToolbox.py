@@ -118,9 +118,9 @@ class Report():
                 '\t{} {} {} {} {} {}'.format("=" * 20, "Bugzilla bugs reported by: ", person, "=== Total Bugs: ",
                                              len(bugs), "=" * 20))
             print('\n')
-            print('\t {0:>10} {1:>10} {2:>30} {3:>20}'.format("Status:", "Date Updated:", "Link:", "Title:"))
+            print('\t {0:<11} {1:<20} {2:<15} {3:<10} {4:<35} {5:>20}'.format("Status:", "Reporter", "Assigned to:", "Date Updated:", "Link:", "Title:"))
             for bug in bugs:
-                print('\t {} {} {} {} '.format(bug.status, str(bug.last_change_time)[0:8], bug.weburl, bug.summary))
+                print('\t {0:<8} {1:>20} {2:} {3:} {4:} {5:} '.format(bug.status, bug.creator, bug.assigned_to,  str(bug.last_change_time)[0:8], bug.weburl, bug.summary))
         else:
             print("No recently opened Bugzilla bugs found")
         return person, len(bugs)

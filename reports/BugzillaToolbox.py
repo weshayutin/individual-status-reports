@@ -11,21 +11,9 @@ now = datetime.now()
 bz = bugzilla.Bugzilla(url='https://bugzilla.redhat.com/xmlrpc.cgi')
 bz.login(os.environ['BZ_USER'], os.environ['BZ_PASSWORD'])
 
-REDHAT_OPENSTACK = "https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&bug_status=ASSIGNED&bug_status=POST&\
-bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&\
-bug_status=RELEASE_PENDING&bug_status=CLOSED&classification=Red%20Hat&\
-emailreporter1=1&emailtype1=exact&known_name=RHEL%20OSP%20Director%20Triage&\
-list_id=3921001&product=Red%20Hat%20OpenStack&query_based_on=RHEL%20OSP%20Director%20Triage&query_format=advanced&\
-chfieldfrom=REPLACE_DATE&chfieldto=Now&\
-email1=REPLACE_PERSON%40redhat.com"
+REDHAT_OPENSTACK = "https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&bug_status=ASSIGNED&bug_status=POST&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=RELEASE_PENDING&bug_status=CLOSED&classification=Red%20Hat&email1=REPLACE_PERSON%40redhat.com&email2=REPLACE_PERSON%40redhat.com&emailassigned_to1=1&emailreporter1=1&emailtype1=exact&emailtype2=exact&known_name=RHEL%20OSP%20Director%20Triage&list_id=7645216&product=Red%20Hat%20OpenStack&query_based_on=RHEL%20OSP%20Director%20Triage&query_format=advanced&chfieldfrom=REPLACE_DATE&chfieldto=Now"
 
-RDO_OPENSTACK = "https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&bug_status=ASSIGNED&bug_status=POST&\
-bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&\
-bug_status=RELEASE_PENDING&bug_status=CLOSED&classification=Community&\
-emailreporter1=1&emailtype1=exact&\
-list_id=3921001&product=RDO&query_format=advanced&\
-chfieldfrom=REPLACE_DATE&chfieldto=Now&\
-email1=REPLACE_PERSON%40redhat.com"
+RDO_OPENSTACK = "https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&bug_status=ASSIGNED&bug_status=POST&bug_status=MODIFIED&bug_status=ON_DEV&bug_status=ON_QA&bug_status=VERIFIED&bug_status=RELEASE_PENDING&bug_status=CLOSED&classification=Community&email1=REPLACE_PERSON%40redhat.com&email2=REPLACE_PERSON%40redhat.com&emailassigned_to1=1&emailreporter1=1&emailtype1=exact&emailtype2=exact&list_id=3921001&product=RDO&query_format=advanced&query_format=advanced&query_format=advanced&chfieldfrom=REPLACE_DATE&chfieldto=Now"
 
 
 # API CONTEXT OBJECT
