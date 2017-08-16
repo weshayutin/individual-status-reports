@@ -60,3 +60,10 @@ bash check_env.sh
 COMMAND='python2 reports/individual_report.py'
 echo $COMMAND
 $COMMAND
+
+echo ""
+echo "TRIPLEO-QUICKSTART review stats"
+gerrymander patchreviewstats --project openstack/tripleo-quickstart
+echo ""
+echo "TRIPLEO-QUICKSTART-EXTRAS review stats"
+gerrymander patchreviewstats --project openstack/tripleo-quickstart-extras

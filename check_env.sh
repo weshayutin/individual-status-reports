@@ -1,7 +1,7 @@
 #!/bin/bash
 source environment.sh
 
-RPM_REQS='python-feedparser python-bugzilla pytz python-dateutil python-devel python2-numpy'
+RPM_REQS='python-feedparser python-bugzilla pytz python-dateutil python-devel python2-numpy gerrymander'
 
 echo "Checking dependencies"
 rpm -q $RPM_REQS &> /tmp/req_check.log
