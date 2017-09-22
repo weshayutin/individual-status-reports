@@ -43,7 +43,11 @@ if __name__ == "__main__":
         print("\n\n\n")
 
         # print out launchpad bugs
-        person_launchpad, lp_bugs = reportHelper.print_launch_pad_bugs(team[member]['openstack'], recent)
+        if team[member]['lp']:
+            person=team[member]['lp']
+        else:
+            person=team[member]['openstack']
+        person_launchpad, lp_bugs = reportHelper.print_launch_pad_bugs(person, recent)
         summary_lp_bugs[person_launchpad] = lp_bugs
         print("\n\n\n")
 
