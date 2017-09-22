@@ -43,7 +43,7 @@ if __name__ == "__main__":
         print("\n\n\n")
 
         # print out launchpad bugs
-        if team[member]['lp']:
+        if team[member].has_key('lp'):
             person=team[member]['lp']
         else:
             person=team[member]['openstack']
