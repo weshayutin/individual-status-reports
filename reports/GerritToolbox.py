@@ -52,11 +52,15 @@ class Changes(object):
         openstack = json.loads(response.text[4:])
 
         # get gerrithub.review.org changes
-        s = '{0}/changes/?q=(status:open+OR+status:merged)+owner:{1}+after:{2}' \
-            .format(self._api.gerrithub_api_root_url, gerrithub_person, since_date)
-        response = requests.get(s)
-        response.raise_for_status()
-        gerrithub = json.loads(response.text[4:])
+	try:
+          s = '{0}/changes/?q=(status:open+OR+status:merged)+owner:{1}+after:{2}' \
+              .format(self._api.gerrithub_api_root_url, gerrithub_person, since_date)
+          response = requests.get(s)
+          response.raise_for_status()
+          gerrithub = json.loads(response.text[4:])
+        except requests.exceptions.HTTPError as err:
+          print("error collecting gerrit data for gerrithub")
+          gerrithub = []
 
         # get review.rdoproject changes
         try:
