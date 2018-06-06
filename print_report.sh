@@ -67,3 +67,18 @@ gerrymander patchreviewstats --project openstack/tripleo-quickstart
 echo ""
 echo "TRIPLEO-QUICKSTART-EXTRAS review stats"
 gerrymander patchreviewstats --project openstack/tripleo-quickstart-extras
+echo ""
+echo "TRIPLEO-CI review stats"
+gerrymander patchreviewstats --project openstack-infra/tripleo-ci
+echo ""
+echo "TRIPLEO-UPGRADES review stats"
+gerrymander patchreviewstats --project openstack/tripleo-upgrade
+echo ""
+echo "TRIPLEO-HEAT-TEMPLATES review stats"
+gerrymander patchreviewstats --project openstack/tripleo-heat-templates
+echo ""
+echo "TRIPLEO-COMMON review stats"
+gerrymander patchreviewstats --project openstack/tripleo-common
+echo ""
+echo "PYTHON-TRIPLEOCLIENT review stats"
+gerrymander patchreviewstats --project openstack/python-tripleoclient
