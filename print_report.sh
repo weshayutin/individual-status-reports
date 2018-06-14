@@ -82,3 +82,6 @@ gerrymander patchreviewstats --project openstack/tripleo-common
 echo ""
 echo "PYTHON-TRIPLEOCLIENT review stats"
 gerrymander patchreviewstats --project openstack/python-tripleoclient
+echo ""
+echo "PYTHON-TRIPLEOCLIENT review stats"
+gerrymander patchreviewstats --project openstack/mistral
